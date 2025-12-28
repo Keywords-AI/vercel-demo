@@ -1,68 +1,42 @@
-# Environment variables
-example_scripts/.env
-.env
-.env.local
-.env.*.local
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Node.js dependencies
-node_modules/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+!.yarnrc.yml
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-.pnpm-store/
+.pnpm-debug.log*
 
-# Python virtual environments and dependencies
-venv/
-env/
-ENV/
-.venv
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# env files (can opt-in for committing if needed)
+.env*
 
-# Poetry
-poetry.lock
-.pdm.toml
+# vercel
+.vercel
 
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Logs
-*.log
-logs/
-
-# OS
-Thumbs.db
-example_scripts/python/poetry.lock
-example_scripts/typescript/node_modules/.package-lock.json
+# typescript
+*.tsbuildinfo
+next-env.d.ts
