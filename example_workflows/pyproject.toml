@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "example-workflows"
+version = "0.1.0"
+description = ""
+authors = ["Raymond Huang <raymond@keywordsai.co>"]
+readme = "README.md"
+packages = [
+    { include = "example_workflows", from = "./src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jupyterlab = "^4.4.5"
+openai = "^1.102.0"
+dotenv = "^0.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
