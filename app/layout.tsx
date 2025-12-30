@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KeywordsAI Tracing Demo",
-  description: "Demo application showcasing KeywordsAI tracing features for OpenAI",
+  title: "Keywords AI Demo",
+  description: "Demo application showcasing Keywords AI APIs and integrations",
 };
 
 export default function RootLayout({
