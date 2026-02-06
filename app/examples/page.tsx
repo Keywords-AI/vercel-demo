@@ -19,7 +19,7 @@ export default function ExamplesPage() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Examples</h1>
             <p className="text-xs text-gray-600 mt-2">
-              Rho demo use cases: Invoice generator (AI autofill) and internal banking chatbot.
+              Demo use cases: Invoice generator (AI autofill) and internal banking chatbot.
             </p>
           </div>
           <Button asChild>

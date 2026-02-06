@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { HOME_CARDS, HOME_SECTION_LABEL } from "./config/homeCards";
+import { BRAND_NAME } from "./config/site";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 
 const DOCS_URL = "https://docs.keywordsai.co/integration/tracing/vercel-tracing?utm_source=agentblocks";
@@ -11,7 +12,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black font-sans">
       <div className="container mx-auto px-6 py-12 max-w-5xl">
         <div className="mb-10 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight">Keywords AI Demo</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{BRAND_NAME} Demo</h1>
           <p className="text-gray-600 italic uppercase text-[10px] tracking-widest font-bold">
             {HOME_SECTION_LABEL}
           </p>

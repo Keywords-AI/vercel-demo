@@ -22,7 +22,7 @@ export const HOME_CARDS: HomeCard[] = [
   {
     title: "Examples",
     description:
-      "Rho demo use cases: Invoice generator (AI autofill) and internal banking chatbot.",
+      "Demo use cases: Invoice generator (AI autofill) and internal banking chatbot.",
     href: "/examples",
   },
 ];
