@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function ObserveThreadsSection(props: { keywordsaiApiKey: string }) {
   const { keywordsaiApiKey } = props;
@@ -55,39 +58,39 @@ export function ObserveThreadsSection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">thread_identifier:</span> {demoThreadIdentifier}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">customer_identifier:</span> {demoCustomerIdentifier}
-          </div>
+          </Card>
         </div>
-      </div>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        <Button
+          className="w-full py-3"
           onClick={createLogWithThread}
           disabled={threadsLoading !== null}
         >
           1) Create log with thread id
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={listThreads}
           disabled={threadsLoading !== null}
         >
           2) List threads
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4">
@@ -95,13 +98,11 @@ export function ObserveThreadsSection(props: { keywordsaiApiKey: string }) {
           <JsonBlock
             title="Step 1 response (Create log)"
             value={createLogResult}
-            emptyText="Click “1) Create log with thread id”"
+            emptyText={`Click "1) Create log with thread id"`}
           />
-          <JsonBlock title="Step 2 response (List threads)" value={threadsResult} emptyText="Click “2) List threads”" />
+          <JsonBlock title="Step 2 response (List threads)" value={threadsResult} emptyText={'Click "2) List threads"'} />
         </div>
       </div>
     </div>
   );
 }
-
-

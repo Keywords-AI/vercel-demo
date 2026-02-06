@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ApiKeyInputs } from "../components/ApiKeyInputs";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 type Provider = "openai" | "google" | "anthropic";
 type Feature = "basic-workflow" | "tool-use" | "override-span";
@@ -87,14 +90,15 @@ export default function IntegrationPage() {
             <h1 className="text-2xl font-bold tracking-tight">Integration</h1>
             <p className="text-xs text-gray-600 mt-2">Vercel AI SDK tracing integration demo.</p>
           </div>
-          <a
-            className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black"
-            href="https://platform.keywordsai.co/platform/dashboard"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Platform
-          </a>
+          <Button asChild>
+            <a
+              href="https://platform.keywordsai.co/platform/dashboard"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Platform
+            </a>
+          </Button>
         </div>
 
         <ApiKeyInputs
@@ -107,9 +111,7 @@ export default function IntegrationPage() {
         />
 
         <div className="mb-8 flex items-center gap-3">
-          <span className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono">
-            Provider
-          </span>
+          <Label>Provider</Label>
           <select
             className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black focus:outline-none"
             value={provider}
@@ -153,15 +155,15 @@ export default function IntegrationPage() {
         </div>
 
         {providers.find((p) => p.id === provider)?.enabled === false && (
-          <div className="mb-12 border border-gray-200 bg-gray-50 p-4">
+          <Card variant="muted" className="mb-12 p-4">
             <p className="text-xs font-mono text-gray-700">
               Provider not enabled yet. Switch to <span className="font-bold">OpenAI</span> for now.
             </p>
-          </div>
+          </Card>
         )}
 
         {selectedFeature && (
-          <div className="border border-black p-8 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)]">
+          <Card className="p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)]">
             <div className="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
               <div>
                 <h3 className="text-sm font-bold uppercase tracking-wider">
@@ -172,19 +174,15 @@ export default function IntegrationPage() {
             </div>
 
             <div className="mb-8">
-              <p className="text-[10px] font-bold uppercase text-gray-400 mb-2 tracking-widest font-mono">
-                Example input
-              </p>
-              <div className="p-4 bg-gray-50 border border-gray-100 font-mono text-xs text-gray-600">
+              <Label className="mb-2 block">Example input</Label>
+              <Card variant="muted" className="p-4 font-mono text-xs text-gray-600">
                 "{features.find((f) => f.id === selectedFeature)?.defaultPrompt}"
-              </div>
+              </Card>
             </div>
 
             {(response?.system_metadata || response?.custom_metadata) && (
-              <div className="mb-8 p-4 bg-gray-50 border border-gray-100">
-                <p className="text-[10px] font-bold uppercase text-gray-400 mb-3 tracking-widest font-mono">
-                  Metadata & params sent
-                </p>
+              <Card variant="muted" className="mb-8 p-4">
+                <Label className="mb-3 block">Metadata & params sent</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {response.system_metadata && (
                     <div>
@@ -203,13 +201,11 @@ export default function IntegrationPage() {
                     </div>
                   )}
                 </div>
-              </div>
+              </Card>
             )}
 
             <div>
-              <p className="text-[10px] font-bold uppercase text-gray-400 mb-2 tracking-widest font-mono">
-                Execution data
-              </p>
+              <Label className="mb-2 block">Execution data</Label>
 
               {response?.steps ? (
                 <div className="space-y-6">
@@ -224,16 +220,20 @@ export default function IntegrationPage() {
                         </span>
                       </div>
                       <p className="text-xs font-bold text-black mb-2">{step.action}</p>
-                      <pre className="text-xs font-mono bg-gray-50 p-4 border border-gray-100 overflow-auto whitespace-pre-wrap leading-relaxed">
-                        {step.output}
-                      </pre>
+                      <Card variant="muted" className="p-4">
+                        <pre className="text-xs font-mono overflow-auto whitespace-pre-wrap leading-relaxed">
+                          {step.output}
+                        </pre>
+                      </Card>
                     </div>
                   ))}
                 </div>
               ) : (
-                <pre className="text-xs font-mono overflow-auto max-h-[400px] whitespace-pre-wrap bg-gray-50 p-4 border border-gray-100 leading-relaxed text-gray-700">
-                  {response ? JSON.stringify(response, null, 2) : "Loading..."}
-                </pre>
+                <Card variant="muted" className="p-4">
+                  <pre className="text-xs font-mono overflow-auto max-h-[400px] whitespace-pre-wrap leading-relaxed text-gray-700">
+                    {response ? JSON.stringify(response, null, 2) : "Loading..."}
+                  </pre>
+                </Card>
               )}
             </div>
 
@@ -244,11 +244,9 @@ export default function IntegrationPage() {
                 </p>
               </div>
             )}
-          </div>
+          </Card>
         )}
       </div>
     </div>
   );
 }
-
-

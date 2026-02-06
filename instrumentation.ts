@@ -20,7 +20,48 @@ export function register() {
         (globalThis as any).__KEYWORDSAI_RUNTIME_API_KEY__;
 
       if (!apiKey) {
-        // tracing disabled
+        resultCallback({ code: 0 });
+        return;
+      }
+
+      // Only send traces for Integration page (Vercel AI SDK: /api/openai/*).
+      // APIs, Examples, and gateway are plain API calls; gateway is auto-logged. Do not trace them.
+      // Use a whitelist: only export traces that contain a span for /api/openai/ (Integration).
+      function getTraceId(span: any): string {
+        return (
+          span.traceId ??
+          span.trace_id ??
+          span.spanContext?.traceId ??
+          span.context?.traceId ??
+          ""
+        );
+      }
+      function getPathUrlOrName(span: any): string {
+        const attrs = span.attributes ?? {};
+        const u =
+          attrs["http.url"] ??
+          attrs["http.target"] ??
+          attrs["http.request.url"] ??
+          attrs["url.path"] ??
+          attrs["next.route"] ??
+          attrs["url"] ??
+          "";
+        const pathOrUrl = typeof u === "string" ? u : String(u);
+        const name = span.name ?? "";
+        return pathOrUrl + " " + name;
+      }
+      // Paths to trace: Integration demos and Banking chatbot workflow
+      const tracedPaths = ["/api/openai/", "/api/banking-chatbot"];
+      const integrationTraceIds = new Set<string>();
+      for (const span of spans) {
+        const pathUrlName = getPathUrlOrName(span);
+        if (tracedPaths.some((p) => pathUrlName.includes(p))) {
+          integrationTraceIds.add(getTraceId(span));
+        }
+      }
+      const filtered = spans.filter((span: any) => integrationTraceIds.has(getTraceId(span)));
+
+      if (filtered.length === 0) {
         resultCallback({ code: 0 });
         return;
       }
@@ -31,7 +72,7 @@ export function register() {
         debug: true,
       }) as any;
 
-      Promise.resolve(exporter.export(spans, resultCallback)).catch((err) => {
+      Promise.resolve(exporter.export(filtered, resultCallback)).catch((err) => {
         resultCallback({
           code: 1,
           error: err instanceof Error ? err : new Error(String(err)),

@@ -11,6 +11,10 @@ import { DevelopGatewaySection } from "./sections/DevelopGatewaySection";
 import { DevelopPromptsSection } from "./sections/DevelopPromptsSection";
 import { DevelopExperimentsSection } from "./sections/DevelopExperimentsSection";
 import { EvaluateDatasetsSection } from "./sections/EvaluateDatasetsSection";
+import { PLATFORM_URL } from "../config/site";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 type ApiSection =
   | "observe-logs"
@@ -27,8 +31,6 @@ export default function ApisPage() {
   const [keywordsaiApiKey, setKeywordsaiApiKey] = useState("");
   const [section, setSection] = useState<ApiSection>("observe-logs");
 
-  const platformUrl = "https://platform.keywordsai.co/platform/dashboard";
-
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       <div className="container mx-auto px-6 py-12 max-w-6xl">
@@ -44,14 +46,11 @@ export default function ApisPage() {
               Use the sidebar to navigate. Each section is a self-contained component so this scales to many endpoints.
             </p>
           </div>
-          <a
-            className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black"
-            href={platformUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Platform
-          </a>
+          <Button asChild>
+            <a href={PLATFORM_URL} target="_blank" rel="noreferrer">
+              Platform
+            </a>
+          </Button>
         </div>
 
         <ApiKeyInputs
@@ -63,101 +62,77 @@ export default function ApisPage() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
-          <div className="border border-gray-200 bg-white p-4">
-            <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-3">Sections</p>
+          <Card className="p-4">
+            <Label className="mb-3 block">Sections</Label>
 
-            <p className="text-[10px] font-bold uppercase text-gray-300 tracking-widest font-mono mb-2">Observe</p>
+            <Label className="mb-2 block text-gray-300">Observe</Label>
             <div className="flex flex-col gap-2 mb-6">
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "observe-logs"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              <Button
+                variant={section === "observe-logs" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("observe-logs")}
               >
                 Logs
-              </button>
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "observe-traces"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              </Button>
+              <Button
+                variant={section === "observe-traces" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("observe-traces")}
               >
                 Traces
-              </button>
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "observe-threads"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              </Button>
+              <Button
+                variant={section === "observe-threads" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("observe-threads")}
               >
                 Threads
-              </button>
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "observe-users"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              </Button>
+              <Button
+                variant={section === "observe-users" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("observe-users")}
               >
                 Users
-              </button>
+              </Button>
             </div>
 
-            <p className="text-[10px] font-bold uppercase text-gray-300 tracking-widest font-mono mb-2">Evaluate</p>
+            <Label className="mb-2 block text-gray-300">Evaluate</Label>
             <div className="flex flex-col gap-2 mb-6">
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "evaluate-datasets"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              <Button
+                variant={section === "evaluate-datasets" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("evaluate-datasets")}
               >
                 Datasets
-              </button>
+              </Button>
             </div>
 
-            <p className="text-[10px] font-bold uppercase text-gray-300 tracking-widest font-mono mb-2">Develop</p>
+            <Label className="mb-2 block text-gray-300">Develop</Label>
             <div className="flex flex-col gap-2">
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "develop-gateway"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              <Button
+                variant={section === "develop-gateway" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("develop-gateway")}
               >
                 Gateway
-              </button>
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "develop-prompts"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              </Button>
+              <Button
+                variant={section === "develop-prompts" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("develop-prompts")}
               >
                 Prompts
-              </button>
-              <button
-                className={`border px-3 py-2 text-xs font-mono text-left ${
-                  section === "develop-experiments"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 hover:border-black"
-                }`}
+              </Button>
+              <Button
+                variant={section === "develop-experiments" ? "primary" : "default"}
+                className="w-full justify-start text-left"
                 onClick={() => setSection("develop-experiments")}
               >
                 Experiments
-              </button>
+              </Button>
             </div>
-          </div>
+          </Card>
 
           <div>
             {section === "observe-logs" && <ObserveLogsSection keywordsaiApiKey={keywordsaiApiKey} />}
@@ -174,5 +149,3 @@ export default function ApisPage() {
     </div>
   );
 }
-
-

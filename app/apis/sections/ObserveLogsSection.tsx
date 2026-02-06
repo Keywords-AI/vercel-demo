@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function ObserveLogsSection(props: { keywordsaiApiKey: string }) {
   const { keywordsaiApiKey } = props;
@@ -94,69 +97,67 @@ export function ObserveLogsSection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">customer_identifier:</span> {demoCustomerIdentifier}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">step 3 note + metadata.customer_identifier:</span> {updatedCustomer}
-          </div>
+          </Card>
         </div>
-      </div>
+      </Card>
 
       <div className="mb-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Derived IDs</p>
+        <Label className="mb-2 block">Derived IDs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">unique_id:</span> {logId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">source:</span> keywords-ai-demo
-          </div>
+          </Card>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        <Button
+          className="w-full py-3"
           onClick={logs.create}
           disabled={logsStepLoading !== null}
         >
           1) Create log
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={logs.get}
           disabled={logsStepLoading !== null || !logId}
         >
           2) Retrieve log
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={logs.update}
           disabled={logsStepLoading !== null || !logId}
         >
           3) Update log
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={logs.list}
           disabled={logsStepLoading !== null}
         >
           4) List logs
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <JsonBlock title="Step 1 response" value={logsCreateResult} emptyText="Click “1) Create log”" />
-        <JsonBlock title="Step 2 response" value={logsGetResult} emptyText="Click “2) Retrieve log”" />
-        <JsonBlock title="Step 3 response" value={logsUpdateResult} emptyText="Click “3) Update log”" />
-        <JsonBlock title="Step 4 response" value={logsListResult} emptyText="Click “4) List logs”" />
+        <JsonBlock title="Step 1 response" value={logsCreateResult} emptyText={'Click "1) Create log"'} />
+        <JsonBlock title="Step 2 response" value={logsGetResult} emptyText={'Click "2) Retrieve log"'} />
+        <JsonBlock title="Step 3 response" value={logsUpdateResult} emptyText={'Click "3) Update log"'} />
+        <JsonBlock title="Step 4 response" value={logsListResult} emptyText={'Click "4) List logs"'} />
       </div>
     </div>
   );
 }
-
-

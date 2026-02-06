@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function ApiKeyInputs(props: {
   showOpenAI?: boolean;
@@ -19,38 +23,31 @@ export function ApiKeyInputs(props: {
     disabled = false,
   } = props;
 
-  // no persistence: keep in-memory only
   const [show, setShow] = useState(false);
 
   return (
-    <div className="mb-12 border border-gray-200 bg-gray-50 p-4">
+    <Card variant="muted" className="mb-12 p-4">
       <div className="mb-4 flex items-end justify-between gap-4">
         <div>
-          <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono">
-            API keys (optional)
-          </p>
+          <Label className="block">API keys (optional)</Label>
           <p className="text-xs text-gray-600">
-            Not persisted. If you set env vars in <span className="font-bold">.env.local</span>, you don’t need these.
+            Not persisted. If you set env vars in <span className="font-bold">.env.local</span>, you don't need these.
           </p>
         </div>
-        <button
-          className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={() => setShow((s) => !s)}
-          disabled={disabled}
-        >
+        <Button onClick={() => setShow((s) => !s)} disabled={disabled}>
           {show ? "Hide" : "Show"}
-        </button>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {showOpenAI && (
           <div>
-            <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">
+            <Label className="mb-2 block">
               OpenAI (<span className="font-bold">OPENAI_API_KEY</span>)
-            </p>
+            </Label>
             <div className="flex gap-2">
-              <input
-                className="flex-1 border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black focus:outline-none disabled:opacity-50"
+              <Input
+                className="flex-1"
                 type={show ? "text" : "password"}
                 placeholder="sk-... (optional)"
                 value={openaiApiKey}
@@ -58,24 +55,20 @@ export function ApiKeyInputs(props: {
                 autoComplete="off"
                 disabled={disabled}
               />
-              <button
-                className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black disabled:opacity-50"
-                disabled={disabled}
-                onClick={() => setOpenaiApiKey("")}
-              >
+              <Button disabled={disabled} onClick={() => setOpenaiApiKey("")}>
                 Clear
-              </button>
+              </Button>
             </div>
           </div>
         )}
 
         <div>
-          <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">
+          <Label className="mb-2 block">
             KeywordsAI (<span className="font-bold">KEYWORDSAI_API_KEY</span>)
-          </p>
+          </Label>
           <div className="flex gap-2">
-            <input
-              className="flex-1 border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black focus:outline-none disabled:opacity-50"
+            <Input
+              className="flex-1"
               type={show ? "text" : "password"}
               placeholder="kwai_... (optional)"
               value={keywordsaiApiKey}
@@ -83,18 +76,12 @@ export function ApiKeyInputs(props: {
               autoComplete="off"
               disabled={disabled}
             />
-            <button
-              className="border border-gray-200 bg-white px-3 py-2 text-xs font-mono hover:border-black disabled:opacity-50"
-              disabled={disabled}
-              onClick={() => setKeywordsaiApiKey("")}
-            >
+            <Button disabled={disabled} onClick={() => setKeywordsaiApiKey("")}>
               Clear
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
-
-

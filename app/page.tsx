@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { HOME_CARDS, HOME_SECTION_LABEL } from "./config/homeCards";
+import { Card, CardTitle, CardDescription } from "@/components/ui/card";
+
+const DOCS_URL = "https://docs.keywordsai.co/integration/tracing/vercel-tracing?utm_source=agentblocks";
 
 export default function Home() {
   return (
@@ -9,13 +13,13 @@ export default function Home() {
         <div className="mb-10 flex flex-col gap-2">
           <h1 className="text-3xl font-bold tracking-tight">Keywords AI Demo</h1>
           <p className="text-gray-600 italic uppercase text-[10px] tracking-widest font-bold">
-            APIs and integrations
+            {HOME_SECTION_LABEL}
           </p>
           <p className="text-[11px] text-gray-600 mt-2">
             Recommended: run locally with env vars for the simplest setup.{" "}
             <a
               className="text-black underline underline-offset-4"
-              href="https://docs.keywordsai.co/integration/tracing/vercel-tracing?utm_source=agentblocks"
+              href={DOCS_URL}
               target="_blank"
               rel="noreferrer"
             >
@@ -25,29 +29,16 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link
-            href="/apis"
-            className="block text-left p-6 border border-gray-200 hover:border-black transition-all"
-          >
-            <h2 className="font-bold text-sm mb-2">APIs</h2>
-            <p className="text-[11px] leading-relaxed text-gray-500">
-              Walk through Keywords AI API endpoints step-by-step (Logs, Traces, …).
-            </p>
-          </Link>
-
-          <Link
-            href="/integration"
-            className="block text-left p-6 border border-gray-200 hover:border-black transition-all"
-          >
-            <h2 className="font-bold text-sm mb-2">Integration</h2>
-            <p className="text-[11px] leading-relaxed text-gray-500">
-              Vercel AI SDK tracing demo (OpenAI provider + 3 tracing examples).
-            </p>
-          </Link>
+          {HOME_CARDS.map((card) => (
+            <Link key={card.href} href={card.href}>
+              <Card className="block text-left p-6 hover:border-black transition-all h-full">
+                <CardTitle className="mb-2">{card.title}</CardTitle>
+                <CardDescription>{card.description}</CardDescription>
+              </Card>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
   );
 }
-
-

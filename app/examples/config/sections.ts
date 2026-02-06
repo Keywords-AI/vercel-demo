@@ -1,0 +1,18 @@
+export interface ExamplePage {
+  label: string;
+  description: string;
+  href: string;
+}
+
+export const EXAMPLE_PAGES: ExamplePage[] = [
+  {
+    label: "Invoice generator",
+    description: "Paste invoice details; AI extracts structured fields via Gateway + JSON schema.",
+    href: "/examples/invoice-generator",
+  },
+  {
+    label: "Banking chatbot",
+    description: "Internal assistant demo: ask a question; response is logged via Gateway.",
+    href: "/examples/banking-chatbot",
+  },
+];

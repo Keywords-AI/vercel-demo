@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 function pickId(obj: any, keys: string[]): string | undefined {
   if (!obj || typeof obj !== "object") return undefined;
@@ -200,7 +203,6 @@ export function EvaluateDatasetsSection(props: { keywordsaiApiKey: string }) {
       setLoading("create-with-logs");
       setR9(null);
       try {
-        // Make it fully guided: create a request log first, then reference it in initial_log_filters.id
         const createdLog = await postProxy("/api/keywordsai/logs/create", keywordsaiApiKey, {
           customer_identifier: "dataset_demo_customer",
         });
@@ -260,170 +262,124 @@ export function EvaluateDatasetsSection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">create dataset:</span> {JSON.stringify(createDatasetPayload)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">patch dataset:</span> {JSON.stringify(patchDatasetPayload)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">create dataset log:</span> {JSON.stringify(createDatasetLogPayload)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">list logs (filters):</span> {JSON.stringify(logsListFilterPayload)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono md:col-span-2">
+          </Card>
+          <Card className="p-3 text-xs font-mono md:col-span-2">
             <span className="text-gray-400">create dataset with specified logs:</span>{" "}
             {JSON.stringify(createDatasetWithLogsBasePayload)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono md:col-span-2">
+          </Card>
+          <Card className="p-3 text-xs font-mono md:col-span-2">
             <span className="text-gray-400">run eval:</span> {JSON.stringify(evalCreatePayload)}
-          </div>
+          </Card>
         </div>
-      </div>
+      </Card>
 
       <div className="mb-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Derived IDs</p>
+        <Label className="mb-2 block">Derived IDs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">dataset_id:</span> {datasetId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">dataset_log_unique_id:</span> {datasetLogUniqueId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">request_log_unique_id (for create-with-logs):</span> {requestLogUniqueId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">eval_report_id:</span> {evalReportId || "—"}
-          </div>
+          </Card>
         </div>
       </div>
 
       {/* 9 dataset APIs (fixed) */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.createDataset}
-          disabled={loading !== null}
-        >
+        <Button className="w-full py-3" onClick={actions.createDataset} disabled={loading !== null}>
           1) Create dataset
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.createDatasetLog}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.createDatasetLog} disabled={loading !== null || !datasetId}>
           2) Create dataset log
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listDatasets}
-          disabled={loading !== null}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.listDatasets} disabled={loading !== null}>
           3) List datasets
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.getDataset}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.getDataset} disabled={loading !== null || !datasetId}>
           4) Retrieve dataset
-        </button>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.patchDataset}
-          disabled={loading !== null || !datasetId}
-        >
+        <Button className="w-full py-3" onClick={actions.patchDataset} disabled={loading !== null || !datasetId}>
           5) Update dataset (PATCH)
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.deleteDataset}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.deleteDataset} disabled={loading !== null || !datasetId}>
           6) Delete dataset
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listDatasetLogs}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.listDatasetLogs} disabled={loading !== null || !datasetId}>
           7) List dataset logs (GET)
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listDatasetLogsWithFilters}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.listDatasetLogsWithFilters} disabled={loading !== null || !datasetId}>
           8) List logs (filters)
-        </button>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.createDatasetWithSpecifiedLogs}
-          disabled={loading !== null}
-        >
+        <Button className="w-full py-3" onClick={actions.createDatasetWithSpecifiedLogs} disabled={loading !== null}>
           9) Create dataset w/ specified logs
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
+        </Button>
       </div>
 
       {/* 2 dataset eval APIs (fixed) */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listEvalRuns}
-          disabled={loading !== null || !datasetId}
-        >
+        <Button className="w-full py-3" onClick={actions.listEvalRuns} disabled={loading !== null || !datasetId}>
           10) List eval runs
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.runEvalOnDataset}
-          disabled={loading !== null || !datasetId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.runEvalOnDataset} disabled={loading !== null || !datasetId}>
           11) Run eval on dataset
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <JsonBlock title="Step 1 response" value={r1} emptyText="Click “1) Create dataset”" />
-        <JsonBlock title="Step 2 response" value={r2} emptyText="Click “2) Create dataset log”" />
-        <JsonBlock title="Step 3 response" value={r3} emptyText="Click “3) List datasets”" />
-        <JsonBlock title="Step 4 response" value={r4} emptyText="Click “4) Retrieve dataset”" />
-        <JsonBlock title="Step 5 response" value={r5} emptyText="Click “5) Update dataset (PATCH)”" />
-        <JsonBlock title="Step 6 response" value={r6} emptyText="Click “6) Delete dataset”" />
-        <JsonBlock title="Step 7 response" value={r7} emptyText="Click “7) List dataset logs (GET)”" />
-        <JsonBlock title="Step 8 response" value={r8} emptyText="Click “8) List logs (filters)”" />
-        <JsonBlock title="Step 9 response" value={r9} emptyText="Click “9) Create dataset w/ specified logs”" />
-        <JsonBlock title="Step 10 response" value={r10} emptyText="Click “10) List eval runs”" />
-        <JsonBlock title="Step 11 response" value={r11} emptyText="Click “11) Run eval on dataset”" />
+        <JsonBlock title="Step 1 response" value={r1} emptyText={'Click "1) Create dataset"'} />
+        <JsonBlock title="Step 2 response" value={r2} emptyText={'Click "2) Create dataset log"'} />
+        <JsonBlock title="Step 3 response" value={r3} emptyText={'Click "3) List datasets"'} />
+        <JsonBlock title="Step 4 response" value={r4} emptyText={'Click "4) Retrieve dataset"'} />
+        <JsonBlock title="Step 5 response" value={r5} emptyText={'Click "5) Update dataset (PATCH)"'} />
+        <JsonBlock title="Step 6 response" value={r6} emptyText={'Click "6) Delete dataset"'} />
+        <JsonBlock title="Step 7 response" value={r7} emptyText={'Click "7) List dataset logs (GET)"'} />
+        <JsonBlock title="Step 8 response" value={r8} emptyText={'Click "8) List logs (filters)"'} />
+        <JsonBlock title="Step 9 response" value={r9} emptyText={'Click "9) Create dataset w/ specified logs"'} />
+        <JsonBlock title="Step 10 response" value={r10} emptyText={'Click "10) List eval runs"'} />
+        <JsonBlock title="Step 11 response" value={r11} emptyText={'Click "11) Run eval on dataset"'} />
       </div>
     </div>
   );
 }
-
-

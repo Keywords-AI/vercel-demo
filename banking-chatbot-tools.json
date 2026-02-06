@@ -1,0 +1,111 @@
+[
+  {
+    "name": "checkAccountBalance",
+    "description": "Check the account balance for a customer. Use when user asks about balance, funds, or how much money they have.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The account ID or 'default' for primary account"
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["checking", "savings", "all"],
+          "description": "Type of account to check"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["accountId", "accountType"]
+    }
+  },
+  {
+    "name": "getTransactionHistory",
+    "description": "Get recent transaction history. Use when user asks about recent transactions, spending, or payment history.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The account ID or 'default' for primary account"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of transactions to return (1-50)"
+        },
+        "transactionType": {
+          "type": "string",
+          "enum": ["all", "debit", "credit"],
+          "description": "Filter by transaction type"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["accountId", "limit"]
+    }
+  },
+  {
+    "name": "wireTransferStatus",
+    "description": "Check the status of a wire transfer. Use when user asks about wire status, transfer status, or pending transfers.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "referenceNumber": {
+          "type": "string",
+          "description": "Wire transfer reference number if known"
+        },
+        "lookupType": {
+          "type": "string",
+          "enum": ["recent", "byReference", "pending"],
+          "description": "How to look up the transfer"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["lookupType"]
+    }
+  },
+  {
+    "name": "createSupportTicket",
+    "description": "Create a support ticket for issues that need human assistance. Use when user has a problem, complaint, or needs help with something complex.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["account", "transaction", "wire", "technical", "other"],
+          "description": "Ticket category"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "urgent"],
+          "description": "Priority level"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Brief subject line"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the issue"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["category", "priority", "subject", "description"]
+    }
+  },
+  {
+    "name": "getAccountInfo",
+    "description": "Get detailed account information. Use when user asks about account details, account settings, or profile information.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "infoType": {
+          "type": "string",
+          "enum": ["basic", "detailed", "settings"],
+          "description": "Level of detail requested"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["infoType"]
+    }
+  }
+]

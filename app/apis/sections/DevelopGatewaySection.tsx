@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function DevelopGatewaySection(props: { keywordsaiApiKey: string }) {
   const { keywordsaiApiKey } = props;
@@ -35,37 +38,35 @@ export function DevelopGatewaySection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
-        <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
+        <Card className="p-3 text-xs font-mono">
           {JSON.stringify(fixedPayload)}
-        </div>
-      </div>
+        </Card>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        <Button
+          className="w-full py-3"
           onClick={run}
           disabled={loading}
         >
           1) Create chat completion
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
-        <button className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50" disabled>
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4">
-        <JsonBlock title="Response" value={result} emptyText="Click “1) Create chat completion”" />
+        <JsonBlock title="Response" value={result} emptyText={'Click "1) Create chat completion"'} />
       </div>
     </div>
   );
 }
-
-

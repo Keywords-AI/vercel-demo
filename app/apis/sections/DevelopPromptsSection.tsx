@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 function pickId(obj: any, keys: string[]): string | undefined {
   if (!obj || typeof obj !== "object") return undefined;
@@ -181,110 +184,76 @@ export function DevelopPromptsSection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">name:</span> {demoPromptName}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">model:</span> gpt-4o-mini
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">update name:</span> {demoPromptNameUpdated}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">update description:</span> {demoPromptDescriptionUpdated}
-          </div>
+          </Card>
         </div>
-      </div>
+      </Card>
 
       <div className="mb-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Derived IDs</p>
+        <Label className="mb-2 block">Derived IDs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">prompt_id:</span> {promptId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">prompt_version_id:</span> {versionId || "—"}
-          </div>
+          </Card>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listPrompts}
-          disabled={loading !== null}
-        >
+        <Button className="w-full py-3" onClick={actions.listPrompts} disabled={loading !== null}>
           1) List prompts
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.createPrompt}
-          disabled={loading !== null}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.createPrompt} disabled={loading !== null}>
           2) Create prompt
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.updatePrompt}
-          disabled={loading !== null || !promptId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.updatePrompt} disabled={loading !== null || !promptId}>
           3) Update prompt
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.deletePrompt}
-          disabled={loading !== null || !promptId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.deletePrompt} disabled={loading !== null || !promptId}>
           4) Delete prompt
-        </button>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.listVersions}
-          disabled={loading !== null || !promptId}
-        >
+        <Button className="w-full py-3" onClick={actions.listVersions} disabled={loading !== null || !promptId}>
           5) List versions
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.createVersion}
-          disabled={loading !== null || !promptId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.createVersion} disabled={loading !== null || !promptId}>
           6) Create version
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.updateVersion}
-          disabled={loading !== null || !promptId || !versionId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.updateVersion} disabled={loading !== null || !promptId || !versionId}>
           7) Update version
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
-          onClick={actions.deleteVersion}
-          disabled={loading !== null || !promptId || !versionId}
-        >
+        </Button>
+        <Button className="w-full py-3" onClick={actions.deleteVersion} disabled={loading !== null || !promptId || !versionId}>
           8) Delete version
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <JsonBlock title="1) List prompts response" value={r1} emptyText="Click “1) List prompts”" />
-        <JsonBlock title="2) Create prompt response" value={r2} emptyText="Click “2) Create prompt”" />
-        <JsonBlock title="3) Update prompt response" value={r3} emptyText="Click “3) Update prompt”" />
-        <JsonBlock title="4) Delete prompt response" value={r4} emptyText="Click “4) Delete prompt”" />
-        <JsonBlock title="5) List versions response" value={r5} emptyText="Click “5) List versions”" />
-        <JsonBlock title="6) Create version response" value={r6} emptyText="Click “6) Create version”" />
-        <JsonBlock title="7) Update version response" value={r7} emptyText="Click “7) Update version”" />
-        <JsonBlock title="8) Delete version response" value={r8} emptyText="Click “8) Delete version”" />
+        <JsonBlock title="1) List prompts response" value={r1} emptyText={'Click "1) List prompts"'} />
+        <JsonBlock title="2) Create prompt response" value={r2} emptyText={'Click "2) Create prompt"'} />
+        <JsonBlock title="3) Update prompt response" value={r3} emptyText={'Click "3) Update prompt"'} />
+        <JsonBlock title="4) Delete prompt response" value={r4} emptyText={'Click "4) Delete prompt"'} />
+        <JsonBlock title="5) List versions response" value={r5} emptyText={'Click "5) List versions"'} />
+        <JsonBlock title="6) Create version response" value={r6} emptyText={'Click "6) Create version"'} />
+        <JsonBlock title="7) Update version response" value={r7} emptyText={'Click "7) Update version"'} />
+        <JsonBlock title="8) Delete version response" value={r8} emptyText={'Click "8) Delete version"'} />
       </div>
     </div>
   );
 }
-
-

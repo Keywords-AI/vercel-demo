@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { JsonBlock } from "../../components/JsonBlock";
 import { postProxy } from "../lib/postProxy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 export function ObserveTracesSection(props: { keywordsaiApiKey: string }) {
   const { keywordsaiApiKey } = props;
@@ -71,67 +74,62 @@ export function ObserveTracesSection(props: { keywordsaiApiKey: string }) {
         </p>
       </div>
 
-      <div className="mb-4 border border-gray-200 bg-gray-50 p-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Fixed inputs</p>
+      <Card variant="muted" className="mb-4 p-4">
+        <Label className="mb-2 block">Fixed inputs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">list params:</span> {JSON.stringify(listDefaults)}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">summary filters:</span> {JSON.stringify({ filters: {} })}
-          </div>
+          </Card>
         </div>
-      </div>
+      </Card>
 
       <div className="mb-4">
-        <p className="text-[10px] font-bold uppercase text-gray-400 tracking-widest font-mono mb-2">Derived IDs</p>
+        <Label className="mb-2 block">Derived IDs</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">trace_unique_id:</span> {traceId || "—"}
-          </div>
-          <div className="border border-gray-200 bg-white p-3 text-xs font-mono">
+          </Card>
+          <Card className="p-3 text-xs font-mono">
             <span className="text-gray-400">source:</span> list traces → first result
-          </div>
+          </Card>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        <Button
+          className="w-full py-3"
           onClick={traces.list}
           disabled={tracesStepLoading !== null}
         >
           1) List traces
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={traces.get}
           disabled={tracesStepLoading !== null || !traceId}
         >
           2) Retrieve trace
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono hover:border-black disabled:opacity-50"
+        </Button>
+        <Button
+          className="w-full py-3"
           onClick={traces.summary}
           disabled={tracesStepLoading !== null}
         >
           3) Summary
-        </button>
-        <button
-          className="w-full border border-gray-200 bg-white px-3 py-3 text-xs font-mono disabled:opacity-50"
-          disabled
-        >
+        </Button>
+        <Button className="w-full py-3" disabled>
           —
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <JsonBlock title="Step 1 response" value={tracesListResult} emptyText="Click “1) List traces”" />
-        <JsonBlock title="Step 2 response" value={tracesGetResult} emptyText="Click “2) Retrieve trace”" />
-        <JsonBlock title="Step 3 response" value={tracesSummaryResult} emptyText="Click “3) Summary”" />
+        <JsonBlock title="Step 1 response" value={tracesListResult} emptyText={'Click "1) List traces"'} />
+        <JsonBlock title="Step 2 response" value={tracesGetResult} emptyText={'Click "2) Retrieve trace"'} />
+        <JsonBlock title="Step 3 response" value={tracesSummaryResult} emptyText={'Click "3) Summary"'} />
       </div>
     </div>
   );
 }
-
-
